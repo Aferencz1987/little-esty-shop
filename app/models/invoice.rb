@@ -7,11 +7,11 @@ class Invoice < ApplicationRecord
 
   def self.successful_transactions
     joins(:transactions)
-    .where(:result = :successful)
+    .where(:result == :successful)
     .select(:result,:customer_id)
     .group(:customer_id)
     .count
     .order
   end
-  
+
 end
