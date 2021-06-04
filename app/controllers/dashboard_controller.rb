@@ -1,4 +1,5 @@
 class DashboardController < ApplicationController
-  def index;end
-
+  def index
+    @merchant = Merchant.all
+  end
 end
