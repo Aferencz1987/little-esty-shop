@@ -21,8 +21,8 @@ RSpec.describe 'merchants' do
     it 'has links on the Merchant Dashboard' do  
       visit merchant_dashboard_index_path(@merchant)
       
-      expect(page).to have_content('Items')
-      expect(page).to have_link(merchant_items_path)
+      expect(page).to have_link('Items')
+      expect(page).to have_link('Invoices')
     end
   end
 end
