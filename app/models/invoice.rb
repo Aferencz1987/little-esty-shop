@@ -5,13 +5,11 @@ class Invoice < ApplicationRecord
   has_many :invoice_items
   has_many :items, through: :invoice_items
 
-  def self.successful_transactions
-    joins(:transactions)
-    .where(:result == :successful)
-    .select(:result,:customer_id)
-    .group(:customer_id)
-    .count
-    .order
+  def self.incomplete_invoices_sorted_by_date
+    joins(:invoice_items)
+    .where("invoice_items.status != 2")
+    .select("invoices.id, invoices.created_at")
+    .order(:created_at)
+    .distinct
   end
-
 end
