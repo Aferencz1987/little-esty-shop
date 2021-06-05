@@ -30,7 +30,6 @@ RSpec.describe 'Admin Merchant' do
     fill_in 'Name', with: 'Claires'
     click_button "Update #{@merchant.name}"
     expect(current_path).to eq("/admin/merchants/#{@merchant.id}")
-    save_and_open_page
     expect(page).to have_content("Merchant has been successfully updated")
   end
 end
