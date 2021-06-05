@@ -1,3 +1,17 @@
 <h1> 👋🏿 Admin Dashboard</h1>
- <a href="/admin/merchants">Merchants</a>
- <a href="/admin/invoices">Invoices</a>
+
+<%= link_to "Merchants", "/admin/merchants" %>
+<%= link_to "Invoices", "/admin/invoices" %>
+<br>
+<br>
+<% @top_5.each do |customer| %>
+<%= customer.first_name %><br>
+Transaction Count: <%= customer.transaction_count %><br><br>
+<% end %>
+
+<h1>Incomplete Invoices</h1>
+
+<% @incomplete_invoices.each do |invoice| %>
+<%= link_to "Invoice #{invoice.id}","/admin/invoices/#{invoice.id}" %><br>
+<%= invoice.created_at.strftime("%A, %B %d, %Y")%><br>
+<% end %>

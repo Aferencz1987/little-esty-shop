@@ -7,7 +7,6 @@ namespace :csv do
     CSV.foreach(Rails.root.join('db/data/customers.csv'), headers: true) do |row|
 
       Customer.create({
-                      id: row[0],
                       first_name: row[1],
                       last_name: row[2],
                       created_at: row[3],
@@ -23,12 +22,11 @@ namespace :csv do
         status = 0
       elsif row[5] == 'pending'
         status = 1
-      elsif row[5] == 'shipped'   
+      elsif row[5] == 'shipped'
         status = 2
       end
 
       InvoiceItem.create({
-                      id: row[0],
                       item_id: row[1],
                       invoice_id: row[2],
                       quantity: row[3],
@@ -47,12 +45,11 @@ namespace :csv do
         status = 0
       elsif row[2] == 'in progress'
         status = 1
-      elsif row[2] == 'completed'   
+      elsif row[2] == 'completed'
         status = 2
       end
 
       Invoice.create({
-                      id: row[0],
                       customer_id: row[1],
                       status: status,
                       created_at: row[3],
@@ -64,10 +61,9 @@ namespace :csv do
   task load_items: :environment do
 
     CSV.foreach(Rails.root.join('db/data/items.csv'), headers: true) do |row|
-      
+
 
       Item.create({
-                      id: row[0],
                       name: row[1],
                       description: row[2],
                       unit_price: row[3],
@@ -83,7 +79,6 @@ namespace :csv do
     CSV.foreach(Rails.root.join('db/data/merchants.csv'), headers: true) do |row|
 
       Merchant.create({
-                      id: row[0],
                       name: row[1],
                       created_at: row[2],
                       updated_at: row[3]
@@ -94,14 +89,14 @@ namespace :csv do
   task load_transactions: :environment do
 
     CSV.foreach(Rails.root.join('db/data/transactions.csv'), headers: true) do |row|
-       if row[2] == 'success'
+       if row[4] == 'success'
         result = 0
-      elsif row[2] == 'failed'
+      elsif row[4] == 'failed'
         result = 1
       end
 
       Transaction.create({
-                      id: row[0],
+
                       invoice_id: row[1],
                       credit_card_number: row[2],
                       credit_card_expiration_date: row[3],
