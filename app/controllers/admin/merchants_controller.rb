@@ -24,7 +24,6 @@ class Admin::MerchantsController < ApplicationController
   def enabled
     @merchant = Merchant.find(params[:id])
     @merchant.update(enabled: params[:enabled])
-    # require "pry"; binding.pry
     redirect_to "/admin/merchants"
   end
 
@@ -33,16 +32,3 @@ class Admin::MerchantsController < ApplicationController
     params.permit(:name)
   end
 end
-
-
-
-
-
-
-# all_approved = pet_application.pets.all? do |pet|
-#   pet.status(pet_application) == "Enabled"
-# end
-#
-# any_rejected = pet_application.pets.any? do |pet|
-#   pet.status(pet_application) == "Rejected"
-# end

@@ -10,6 +10,13 @@ class Merchant < ApplicationRecord
       .select('customers.first_name, count(transactions) as successful_transactions')
       .group('customers.id')
       .order('successful_transactions desc')
-      .limit(5)  
+      .limit(5)
+  end
+
+  def self.group_by_enabled
+    where(enabled: true)
+  end
+  def self.group_by_disabled
+    where(enabled: false)
   end
 end

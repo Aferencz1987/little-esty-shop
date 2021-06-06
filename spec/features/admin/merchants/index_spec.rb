@@ -40,4 +40,23 @@ RSpec.describe 'Admin Merchant' do
     expect(page).to have_content("Enabled")
     expect(page).to have_button("Disable #{@merchant_1.name}")
   end
+
+  it 'groups enabled and disabled' do
+    @merchant_1 = Merchant.create!(name: 'H&M', enabled: true)
+    @merchant_2 = Merchant.create!(name: 'Bubble', enabled: true)
+    @merchant_3 = Merchant.create!(name: 'Pop', enabled: true)
+    @merchant_4 = Merchant.create!(name: 'Egg', enabled: false)
+
+    visit '/admin/merchants'
+
+    within '.enabled' do
+      expect(page).to have_content(@merchant_1.name)
+      expect(page).to have_content(@merchant_2.name)
+      expect(page).to have_content(@merchant_3.name)
+    end
+
+    within '.disabled' do
+      expect(page).to have_content(@merchant_4.name)
+    end
+  end
 end
