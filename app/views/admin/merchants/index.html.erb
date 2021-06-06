@@ -1,13 +1,32 @@
 <h1>Admin Merchants</h1>
-<% @merchants.each do |merchant| %>
-<%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}"  %>
-<% merchant.enabled %>
-  <% if merchant.enabled == true %>
+<div class="enabled">
+  <h2> Enabled Merchants </h2>
+  <% @merchants.group_by_enabled.each do |merchant| %>
+    <%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}"  %>
+    <% merchant.enabled %>
+    <% if merchant.enabled == true %>
       Enabled
-    <%= button_to "Disable #{merchant.name}", "/admin/merchants/#{merchant.id}", params:{enabled: false} %>
-  <% else merchant.enabled == false %>
+      <%= button_to "Disable #{merchant.name}", "/admin/merchants/#{merchant.id}", params:{enabled: false} %>
+    <% else merchant.enabled == false %>
       Disabled
-    <%= button_to "Enable #{merchant.name}", "/admin/merchants/#{merchant.id}", params:{enabled: true}  %>
+      <%= button_to "Enable #{merchant.name}", "/admin/merchants/#{merchant.id}", params:{enabled: true}  %>
+    <% end %>
+    <br>
   <% end %>
-<br>
-<% end %>
+</div>
+
+<div class="disabled">
+  <h2> Disabled Merchants </h2>
+  <% @merchants.group_by_disabled.each do |merchant| %>
+    <%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}"  %>
+    <% merchant.enabled %>
+    <% if merchant.enabled == true %>
+      Enabled
+      <%= button_to "Disable #{merchant.name}", "/admin/merchants/#{merchant.id}", params:{enabled: false} %>
+    <% else merchant.enabled == false %>
+      Disabled
+      <%= button_to "Enable #{merchant.name}", "/admin/merchants/#{merchant.id}", params:{enabled: true}  %>
+    <% end %>
+    <br>
+  <% end %>
+</div>

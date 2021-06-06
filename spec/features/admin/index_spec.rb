@@ -129,13 +129,13 @@ RSpec.describe 'Admin' do
 
     @invoice_item_1 = InvoiceItem.create!(item: @item_1, invoice: @invoice_10, quantity: 4, unit_price: 2, status: 0)
     @invoice_item_2 = InvoiceItem.create!(item: @item_2, invoice: @invoice_9, quantity: 4, unit_price: 2, status: 1)
-    @invoice_item_3 = InvoiceItem.create!(item: @item_3, invoice: @invoice_8, quantity: 4, unit_price: 2, status: 2) #s
+    @invoice_item_3 = InvoiceItem.create!(item: @item_3, invoice: @invoice_8, quantity: 4, unit_price: 2, status: 2)
     @invoice_item_4 = InvoiceItem.create!(item: @item_4, invoice: @invoice_7, quantity: 4, unit_price: 2, status: 0)
     @invoice_item_5 = InvoiceItem.create!(item: @item_5, invoice: @invoice_6, quantity: 4, unit_price: 2, status: 1)
-    @invoice_item_6 = InvoiceItem.create!(item: @item_6, invoice: @invoice_5, quantity: 4, unit_price: 2, status: 2) #s
+    @invoice_item_6 = InvoiceItem.create!(item: @item_6, invoice: @invoice_5, quantity: 4, unit_price: 2, status: 2)
     @invoice_item_7 = InvoiceItem.create!(item: @item_7, invoice: @invoice_4, quantity: 4, unit_price: 2, status: 0)
     @invoice_item_8 = InvoiceItem.create!(item: @item_8, invoice: @invoice_3, quantity: 4, unit_price: 2, status: 1)
-    @invoice_item_9 = InvoiceItem.create!(item: @item_9, invoice: @invoice_2, quantity: 4, unit_price: 2, status: 2) #s
+    @invoice_item_9 = InvoiceItem.create!(item: @item_9, invoice: @invoice_2, quantity: 4, unit_price: 2, status: 2)
     @invoice_item_10 = InvoiceItem.create!(item: @item_10, invoice: @invoice_1, quantity: 4, unit_price: 2, status: 0)
     visit '/admin'
     expect(page).to have_content("Incomplete Invoices")
@@ -167,6 +167,5 @@ RSpec.describe 'Admin' do
 
     expect(page).to have_content(@invoice_1.id)
     expect(page).to have_link("Invoice #{@invoice_1.id}")
-
   end
 end
