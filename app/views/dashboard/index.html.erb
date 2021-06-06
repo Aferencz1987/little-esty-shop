@@ -1,7 +1,10 @@
 <h1>Merchant Dashboard</h1>
 
-<% @merchant.each do |merchant| %>
-  <h3><%= merchant.name %></h3>
+  <h3><%= @merchant.name %></h3>
   <a href=merchant_items_path(merchant.id)>Items</a>
   <a href=merchant_invoice_path(merchant.id)>Invoices</a>
+
+<h2>Top 5 Customers</h2>
+<% @merchant.top_five_customers.each do |customer| %>
+ <p> <%= customer.first_name %>: Successful Transactions </p>
 <% end %>
