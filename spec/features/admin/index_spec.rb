@@ -95,7 +95,7 @@ RSpec.describe 'Admin' do
     expect(@customer_6.first_name).to appear_before(@customer_2.first_name)
   end
 
-  it 'shows incomplete invoices' do
+  it 'shows incomplete invoices sorted by date ' do
     @customer_1 = Customer.create!(first_name: "Dee", last_name: "Hill")
     @customer_2 = Customer.create!(first_name: "Zach", last_name: "Green")
     @customer_3 = Customer.create!(first_name: "Alex", last_name: "Ferencz")
@@ -147,9 +147,12 @@ RSpec.describe 'Admin' do
 
     expect(page).to have_content(@invoice_9.id)
     expect(page).to have_link("Invoice #{@invoice_9.id}")
+    expect(page).to have_content(@invoice_9.created_at.strftime("%A, %B %d, %Y"))
+
 
     expect(page).to have_content(@invoice_7.id)
     expect(page).to have_link("Invoice #{@invoice_7.id}")
+    expect(page).to have_content(@invoice_7.created_at.strftime("%A, %B %d, %Y"))
 
     expect(page).to have_content(@invoice_6.id)
     expect(page).to have_link("Invoice #{@invoice_6.id}")
