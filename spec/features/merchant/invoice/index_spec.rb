@@ -37,6 +37,10 @@ RSpec.describe 'Merchant Invoice' do
     expect(page).to have_content(@invoice_3.id)
     expect(page).to have_content(@invoice_4.id)
 
-    # expect(page).to have_link()
+    # expect(page).to have_link("/merchants/#{@merchant.id}/invoices/#{@invoice_1.id}")
+    expect(page).to have_link("#{@invoice_1.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_1.id}")
+    expect(page).to have_link("#{@invoice_2.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_2.id}")
+    expect(page).to have_link("#{@invoice_3.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}")
+    expect(page).to have_link("#{@invoice_4.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_4.id}")
   end    
 end
