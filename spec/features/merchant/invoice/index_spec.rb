@@ -11,10 +11,10 @@ RSpec.describe 'Merchant Invoice' do
     @item_3 = Item.create!(name: 'Shorts', description: 'For basketball', unit_price: 11.2, merchant_id: @merchant_2.id)
     @item_4 = Item.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4, merchant_id: @merchant_2.id)
     
-    @invoice_1 = Invoices.create!(status: 1, merchant_id: @customer.id)
-    @invoice_2 = Invoices.create!(status: 1, merchant_id: @customer.id)
-    @invoice_3 = Invoices.create!(status: 1, merchant_id: @customer.id)
-    @invoice_4 = Invoices.create!(status: 1, merchant_id: @customer.id)
+    @invoice_1 = @customer.invoices.create!(status: 1, merchant_id: @merchant.id)
+    @invoice_2 = @customer.invoices.create!(status: 1, merchant_id: @merchant.id)
+    @invoice_3 = @customer.invoices.create!(status: 1, merchant_id: @merchant.id)
+    @invoice_4 = @customer.invoices.create!(status: 1, merchant_id: @merchant.id)
     
     @invoice_item_1 = InvoiceItem.create!(quantity: 2, unit_price: 14.9, status: 1, invoice_id: @invoice_1.id, item_id: @item_1.id) 
     @invoice_item_2 = InvoiceItem.create!(quantity: 1, unit_price: 14.9, status: 1, invoice_id: @invoice_2.id, item_id: @item_2.id)
@@ -28,9 +28,15 @@ RSpec.describe 'Merchant Invoice' do
     # And for each invoice I see its id
     # And each id links to the merchant invoice show page
   it 'visits the Merchant invocie index' do
-    visit merchant_invoices(@merchant)
+    visit "merchants/#{@merchant.id}/invoices"
 
     expect(page).to have_content('Merchant Invoices')
     
+    expect(page).to have_content(@invoice_1.id)
+    expect(page).to have_content(@invoice_2.id)
+    expect(page).to have_content(@invoice_3.id)
+    expect(page).to have_content(@invoice_4.id)
+
+    # expect(page).to have_link()
   end    
 end
