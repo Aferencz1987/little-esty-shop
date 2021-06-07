@@ -22,11 +22,7 @@ RSpec.describe 'Merchant Invoice' do
     @invoice_item_4 = InvoiceItem.create!(quantity: 2, unit_price: 14.9, status: 1, invoice_id: @invoice_4.id, item_id: @item_4.id)
   end
 
-    # As a merchant,
-    # When I visit my merchant's invoices index (/merchants/merchant_id/invoices)
-    # Then I see all of the invoices that include at least one of my merchant's items
-    # And for each invoice I see its id
-    # And each id links to the merchant invoice show page
+    #Merchant Invoice Story 1
   it 'visits the Merchant invocie index' do
     visit "merchants/#{@merchant.id}/invoices"
 
@@ -37,7 +33,6 @@ RSpec.describe 'Merchant Invoice' do
     expect(page).to have_content(@invoice_3.id)
     expect(page).to have_content(@invoice_4.id)
 
-    # expect(page).to have_link("/merchants/#{@merchant.id}/invoices/#{@invoice_1.id}")
     expect(page).to have_link("#{@invoice_1.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_1.id}")
     expect(page).to have_link("#{@invoice_2.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_2.id}")
     expect(page).to have_link("#{@invoice_3.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}")
