@@ -17,13 +17,8 @@ RSpec.describe 'Merchant Invoice show page' do
       @invoice_item_2 = InvoiceItem.create!(quantity: 1, unit_price: 14.9, status: 1, invoice_id: @invoice_1.id, item_id: @item_2.id)
       @invoice_item_3 = InvoiceItem.create!(quantity: 2, unit_price: 14.9, status: 1, invoice_id: @invoice_1.id, item_id: @item_3.id)
     end
-    #   As a merchant
-    # When I visit my merchant's invoice show page(/merchants/merchant_id/invoices/invoice_id)
-    # Then I see information related to that invoice including:
-    # - Invoice id
-    # - Invoice status
-    # - Invoice created_at date in the format "Monday, July 18, 2019"
-    # - Customer first and last name  
+    
+    # Merchant Invoice Story 2  
     it 'shows an info related to tthe invoice' do
       visit "/merchants/#{@merchant.id}/invoices/#{@invoice_1.id}"     
 
@@ -32,5 +27,15 @@ RSpec.describe 'Merchant Invoice show page' do
       expect(page).to have_content("#{@invoice_1.id}")
       expect(page).to have_content("#{@customer.first_name}")
       expect(page).to have_content("#{@customer.last_name}")
-    end  
+    end
+    
+        # When I visit my merchant invoice show page
+        # Then I see all of my items on the invoice including:
+        # - Item name
+        # - The quantity of the item ordered
+        # - The price the Item sold for
+        # - The Invoice Item status
+        # And I do not see any information related to Items for other merchants
+    it '' do
+    end
 end

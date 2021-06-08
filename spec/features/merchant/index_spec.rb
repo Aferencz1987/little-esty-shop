@@ -19,7 +19,12 @@ RSpec.describe 'merchants' do
       visit merchant_dashboard_index_path(@merchant)
       
       expect(page).to have_link('Items')
+
       expect(page).to have_link('Invoices')
+
+      click_link 'Invoices'
+
+      expect(current_path).to eq("/merchants/#{@merchant.id}/invoices")
     end
     
     # Merchant Dash Story 3
