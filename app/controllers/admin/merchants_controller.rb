@@ -17,7 +17,6 @@ class Admin::MerchantsController < ApplicationController
     if @merchant.save
       redirect_to "/admin/merchants/#{@merchant.id}",
       error: "Merchant has been successfully updated"
-      # flash[:success] = "Merchant has been successfully updated"
     end
   end
 
@@ -27,8 +26,17 @@ class Admin::MerchantsController < ApplicationController
     redirect_to "/admin/merchants"
   end
 
+  def new
+  end
+
+  def create
+    @new_merchant = Merchant.create!(merchant_params)#(name: params[:name], enabled: params[:enabled])
+
+    redirect_to "/admin/merchants"
+  end
+
   private
   def merchant_params
-    params.permit(:name)
+    params.permit(:name, :enabled)
   end
 end

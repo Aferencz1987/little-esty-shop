@@ -1,0 +1,7 @@
+<%= form_with url: "/admin/merchants", method: :post, local: true do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %><br><br>
+  <%= f.hidden_field :enabled, value: false %><br><br>
+  <%= f.submit %>
+
+<% end %>
