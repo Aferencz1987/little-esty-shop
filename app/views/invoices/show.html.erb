@@ -6,4 +6,13 @@
 
 <h3>Customer Name: <%= @customer.first_name %> <%= @customer.last_name %></h3>
 
-<h1><%= @.name %></h1>
+<h1>Items</h1>
+
+<% @invoice_items.each do |invoice_item| %>
+  <% if invoice_item.item.merchant == @merchant %>
+    <p><%= invoice_item.item.name %></p>
+    <p><%= invoice_item.quantity %></p>
+    <p><%= invoice_item.unit_price %></p>
+    <p><%= invoice_item.status %></p>
+  <% end %> 
+<% end %>
