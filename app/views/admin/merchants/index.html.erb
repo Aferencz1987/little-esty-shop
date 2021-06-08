@@ -1,4 +1,5 @@
 <h1>Admin Merchants</h1>
+<%= link_to "Create Merchant", "/admin/merchants/new" %>
 <div class="enabled">
   <h2> Enabled Merchants </h2>
   <% @merchants.group_by_enabled.each do |merchant| %>
