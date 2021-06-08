@@ -15,18 +15,18 @@ RSpec.describe 'Merchant Invoice show page' do
     
       @invoice_item_1 = InvoiceItem.create!(quantity: 2, unit_price: 14.9, status: 1, invoice_id: @invoice_1.id, item_id: @item_1.id) 
       @invoice_item_2 = InvoiceItem.create!(quantity: 1, unit_price: 14.9, status: 1, invoice_id: @invoice_1.id, item_id: @item_2.id)
-      @invoice_item_3 = InvoiceItem.create!(quantity: 2, unit_price: 14.9, status: 1, invoice_id: @invoice_1.id, item_id: @item_3.id)
+      @invoice_item_3 = InvoiceItem.create!(quantity: 7, unit_price: 14.9, status: 1, invoice_id: @invoice_1.id, item_id: @item_3.id)
     end
     
     # Merchant Invoice Story 2  
     it 'shows an info related to tthe invoice' do
       visit "/merchants/#{@merchant.id}/invoices/#{@invoice_1.id}"     
 
-      expect(page).to have_content("#{@invoice_1.id}")
-      expect(page).to have_content("#{@invoice_1.status}")
-      expect(page).to have_content("#{@invoice_1.id}")
-      expect(page).to have_content("#{@customer.first_name}")
-      expect(page).to have_content("#{@customer.last_name}")
+      expect(page).to have_content(@invoice_1.id)
+      expect(page).to have_content(@invoice_1.status)
+      expect(page).to have_content(@invoice_1.id)
+      expect(page).to have_content(@customer.first_name)
+      expect(page).to have_content(@customer.last_name)
     end
     
         # When I visit my merchant invoice show page
@@ -36,6 +36,22 @@ RSpec.describe 'Merchant Invoice show page' do
         # - The price the Item sold for
         # - The Invoice Item status
         # And I do not see any information related to Items for other merchants
-    it '' do
+    it 'shows all the items on the invoice show page with attributes including Invoice Item quatity and status' do 
+      visit "/merchants/#{@merchant.id}/invoices/#{@invoice_1.id}"
+      
+      expect(page).to have_content('Items')
+
+      expect(page).to have_content(@item_1.name)
+      expect(page).to have_content(@invoice_item_1.quatity)
+      expect(page).to have_content(@invoice_item_1.unit_price)
+      expect(page).to have_content(@invoice_item_1.status)
+      
+      expect(page).to have_content(@item_2.name)
+      expect(page).to have_content(@invoice_item_2.quatity)
+      expect(page).to have_content(@invoice_item_2.unit_price)
+      expect(page).to have_content(@invoice_item_2.status)
+
+      expect(page).to_not have_content(@item_3.name)
+      expect(page).to_not have_content(@item_4.name)
     end
 end
