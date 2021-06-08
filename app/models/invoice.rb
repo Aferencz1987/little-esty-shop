@@ -13,4 +13,8 @@ class Invoice < ApplicationRecord
     .order(:created_at)
     .distinct
   end
+
+  def convert_time
+    self.created_at.strftime("%A, %B %d, %Y")  
+  end
 end
