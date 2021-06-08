@@ -1,7 +1,7 @@
 <h1>Merchant Dashboard</h1>
 
   <h3><%= @merchant.name %></h3>
-  <a href=merchant_items_path(merchant.id)>Items</a>
+  <%= link_to "Items", "/merchants/#{@merchant.id}/items" %>
   <%= link_to "Invoices", "/merchants/#{@merchant.id}/invoices" %>
 
 <h2>Top 5 Customers</h2>
