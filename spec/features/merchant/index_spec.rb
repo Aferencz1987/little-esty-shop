@@ -79,10 +79,9 @@ RSpec.describe 'merchants' do
       
       # expect(page).to have_content(@customer_1.transaction_count)
       expect(page).to have_content(@customer_1.first_name)
-
-      # expect(page).to have_content(@customer_2.first_name)
-      # expect(page).to have_content(@customer_3.first_name)
-      # expect(page).to have_content(@customer_4.first_name)
+      expect(page).to have_content(@customer_2.first_name)
+      expect(page).to have_content(@customer_3.first_name)
+      expect(page).to have_content(@customer_4.first_name)
       # expect(page).to have_content(@customer_5.first_name)
       
       # expect(page).to_not have_content(@customer_6.first_name)
