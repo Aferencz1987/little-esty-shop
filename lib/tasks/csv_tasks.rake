@@ -6,7 +6,7 @@ namespace :csv do
 
     CSV.foreach(Rails.root.join('db/data/customers.csv'), headers: true) do |row|
 
-      Customer.create({
+      Customer.create!({
                       first_name: row[1],
                       last_name: row[2],
                       created_at: row[3],
@@ -26,7 +26,7 @@ namespace :csv do
         status = 2
       end
 
-      InvoiceItem.create({
+      InvoiceItem.create!({
                       item_id: row[1],
                       invoice_id: row[2],
                       quantity: row[3],
@@ -49,7 +49,7 @@ namespace :csv do
         status = 2
       end
 
-      Invoice.create({
+      Invoice.create!({
                       customer_id: row[1],
                       status: status,
                       created_at: row[3],
@@ -63,7 +63,7 @@ namespace :csv do
     CSV.foreach(Rails.root.join('db/data/items.csv'), headers: true) do |row|
 
 
-      Item.create({
+      Item.create!({
                       name: row[1],
                       description: row[2],
                       unit_price: row[3],
@@ -78,7 +78,7 @@ namespace :csv do
 
     CSV.foreach(Rails.root.join('db/data/merchants.csv'), headers: true) do |row|
 
-      Merchant.create({
+      Merchant.create!({
                       name: row[1],
                       created_at: row[2],
                       updated_at: row[3]
@@ -95,7 +95,7 @@ namespace :csv do
         result = 1
       end
 
-      Transaction.create({
+      Transaction.create!({
 
                       invoice_id: row[1],
                       credit_card_number: row[2],
