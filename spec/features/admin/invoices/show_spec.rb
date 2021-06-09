@@ -35,7 +35,6 @@ RSpec.describe 'Admin Invoice show page' do
     expect(page).to have_content("Invoice id: #{@invoice_4.id}")
     expect(page).to have_content("Status: #{@invoice_4.status}")
     expect(page).to have_content("Created at: #{@invoice_4.created_at.strftime("%A, %B %d, %Y")}")
-    save_and_open_page
     expect(page).to have_content("Customer: #{@customer.first_name} #{@customer.last_name}")
   end
 end

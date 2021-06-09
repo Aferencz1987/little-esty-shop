@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'merchants' do 
-  before(:each) do 
+RSpec.describe 'merchants' do
+  before(:each) do
     @merchant = Merchant.create!(name: 'H&M')
 
     @customer_1 = Customer.create!(first_name: "Dee", last_name: "Hill")
@@ -47,29 +47,29 @@ RSpec.describe 'merchants' do
     @item_2 = Item.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4, merchant_id: @merchant.id)
     @item_3 = Item.create!(name: 'Shorts', description: 'For basketball', unit_price: 11.2, merchant_id: @merchant.id)
     @item_4 = Item.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4, merchant_id: @merchant.id)
-  
-    @invoice_item_1 = InvoiceItem.create!(quantity: 2, unit_price: 10.0, status: 1, invoice_id: @invoice_1.id, item_id: @item_1.id) 
+
+    @invoice_item_1 = InvoiceItem.create!(quantity: 2, unit_price: 10.0, status: 1, invoice_id: @invoice_1.id, item_id: @item_1.id)
     @invoice_item_2 = InvoiceItem.create!(quantity: 1, unit_price: 12.4, status: 1, invoice_id: @invoice_2.id, item_id: @item_2.id)
     @invoice_item_3 = InvoiceItem.create!(quantity: 7, unit_price: 11.2, status: 1, invoice_id: @invoice_3.id, item_id: @item_3.id)
 
-    @invoice_item_4 = InvoiceItem.create!(quantity: 12, unit_price: 10.0, status: 1, invoice_id: @invoice_4.id, item_id: @item_1.id) 
+    @invoice_item_4 = InvoiceItem.create!(quantity: 12, unit_price: 10.0, status: 1, invoice_id: @invoice_4.id, item_id: @item_1.id)
     @invoice_item_5 = InvoiceItem.create!(quantity: 7, unit_price: 12.4, status: 1, invoice_id: @invoice_5.id, item_id: @item_2.id)
     @invoice_item_6 = InvoiceItem.create!(quantity: 19, unit_price: 12.4, status: 1, invoice_id: @invoice_6.id, item_id: @item_4.id)
   end
 
   describe 'Merchant Dash' do
-    # Merchant Dash Story 1 
+    # Merchant Dash Story 1
     it 'visits the Merchant Dashboard' do
       visit merchant_dashboard_index_path(@merchant)
-      
+
       expect(page).to have_content('Merchant Dashboard')
       expect(page).to have_content(@merchant.name)
     end
-    
+
     # Merchant Dash Story 2
-    it 'has links on the Merchant Dashboard' do  
+    it 'has links on the Merchant Dashboard' do
       visit merchant_dashboard_index_path(@merchant)
-      
+
       expect(page).to have_link('Items')
 
       # click_link 'Items'
@@ -84,22 +84,21 @@ RSpec.describe 'merchants' do
 
       expect(current_path).to eq("/merchants/#{@merchant.id}/invoices")
     end
-    
+
     # Merchant Dash Story 3
     it 'shows the top 5 customers who conducted the most successful transactions' do
 
-      
+
 
       visit merchant_dashboard_index_path(@merchant)
-      
+
       # expect(page).to have_content(@customer_1.transaction_count)
-      save_and_open_page
       expect(page).to have_content(@customer_1.first_name)
       expect(page).to have_content(@customer_2.first_name)
       expect(page).to have_content(@customer_3.first_name)
       expect(page).to have_content(@customer_4.first_name)
       expect(page).to have_content(@customer_6.first_name)
-      
+
       # expect(page).to_not have_content(@customer_6.first_name)
       # expect(page).to_not have_content(@customer_7.first_name)
     end
