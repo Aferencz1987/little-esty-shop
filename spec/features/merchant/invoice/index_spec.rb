@@ -6,10 +6,10 @@ RSpec.describe 'Merchant Invoice' do
     @merchant_2 = Merchant.create!(name: 'Hot Topic')
     @customer = Customer.create!(first_name: "Dee", last_name: "Hill")
 
-    @item_1 = Item.create!(name: 'Shoes', description: 'For your feet', unit_price: 10.0)
-    @item_2 = Item.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4)
-    @item_3 = Item.create!(name: 'Shorts', description: 'For basketball', unit_price: 11.2)
-    @item_4 = Item.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4)
+    @item_1 = @merchant.items.create!(name: 'Shoes', description: 'For your feet', unit_price: 10.0)
+    @item_2 = @merchant.items.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4)
+    @item_3 = @merchant_2.items.create!(name: 'Shorts', description: 'For basketball', unit_price: 11.2)
+    @item_4 = @merchant_2.items.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4)
     
     @invoice_1 = @customer.invoices.create!(status: 1)
     @invoice_2 = @customer.invoices.create!(status: 1)
@@ -30,12 +30,12 @@ RSpec.describe 'Merchant Invoice' do
     
     expect(page).to have_content(@invoice_1.id)
     expect(page).to have_content(@invoice_2.id)
-    expect(page).to have_content(@invoice_3.id)
-    expect(page).to have_content(@invoice_4.id)
+    # expect(page).to have_content(@invoice_3.id)
+    # expect(page).to have_content(@invoice_4.id)
 
     expect(page).to have_link("#{@invoice_1.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_1.id}")
     expect(page).to have_link("#{@invoice_2.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_2.id}")
-    expect(page).to have_link("#{@invoice_3.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}")
-    expect(page).to have_link("#{@invoice_4.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_4.id}")
+    # expect(page).to have_link("#{@invoice_3.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_3.id}")
+    # expect(page).to have_link("#{@invoice_4.id}", href: "/merchants/#{@merchant.id}/invoices/#{@invoice_4.id}")
   end    
 end

@@ -6,12 +6,12 @@ RSpec.describe 'Merchant Invoice show page' do
       @merchant_2 = Merchant.create!(name: 'Hot Topic')
       @customer = Customer.create!(first_name: "Dee", last_name: "Hill")
 
-      @item_1 = Item.create!(name: 'Shoes', description: 'For your feet', unit_price: 10.0, merchant_id: @merchant.id)
-      @item_2 = Item.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4, merchant_id: @merchant.id)
-      @item_3 = Item.create!(name: 'Shorts', description: 'For basketball', unit_price: 11.2, merchant_id: @merchant_2.id)
-      @item_4 = Item.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4, merchant_id: @merchant_2.id)
+      @item_1 = @merchant.items.create!(name: 'Shoes', description: 'For your feet', unit_price: 10.0)
+      @item_2 = @merchant.items.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4)
+      @item_3 = @merchant.items.create!(name: 'Shorts', description: 'For basketball', unit_price: 11.2)
+      @item_4 = @merchant.items.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4)
     
-      @invoice_1 = @customer.invoices.create!(status: 1, merchant_id: @merchant.id)
+      @invoice_1 = @customer.invoices.create!(status: 1)
     
       @invoice_item_1 = InvoiceItem.create!(quantity: 2, unit_price: 14.9, status: 1, invoice_id: @invoice_1.id, item_id: @item_1.id) 
       @invoice_item_2 = InvoiceItem.create!(quantity: 1, unit_price: 14.9, status: 1, invoice_id: @invoice_1.id, item_id: @item_2.id)
