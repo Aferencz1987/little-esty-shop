@@ -29,7 +29,6 @@ RSpec.describe 'Admin Invoice' do
     # Then I see a list of all Invoice ids in the system
     # Each id links to the admin invoice show page
     visit "/admin/invoices"
-    save_and_open_page
     expect(page).to have_link("#{@invoice_1.id}")
     expect(page).to have_link("#{@invoice_2.id}")
     expect(page).to have_link("#{@invoice_3.id}")
