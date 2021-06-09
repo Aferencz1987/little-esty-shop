@@ -19,4 +19,21 @@ class Merchant < ApplicationRecord
   def self.group_by_disabled
     where(enabled: false)
   end
+
+  def self.top_five_by_revenue
+    joins(items: :invoice_items)
+    .joins('JOIN transactions ON invoice_items.invoice_id = transactions.invoice_id')
+    .select('merchants.*, sum(invoice_items.unit_price * invoice_items.quantity) AS revenue')
+    .where('transactions.result = 0')
+    .group('merchants.id')
+    .order('revenue desc')
+    .limit(5)
+  end
+  #
+  # def best_day
+  #   joins(items: :invoice_items)
+  #   .joins('JOIN transactions ON invoice_items.invoice_id = transactions.invoice_id')
+  #   .select('merchants.*, sum(invoice_items.unit_price * invoice_items.quantity) AS revenue' )
+  #
+  # end
 end

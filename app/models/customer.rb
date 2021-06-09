@@ -9,4 +9,12 @@ class Customer < ApplicationRecord
     .group(:id)
     .limit(5)
   end
+
+  def self.customer_merchants(merchant)
+    invoices.joins(:transactions, [items: :merchant])
+    .select('merchants.*, sum(invoice_items.unit_price * invoice_items.quantity) AS revenue')
+    .where('transactions.result = 0')
+    .group('merchants.id')
+    .order('revenue')
+  end
 end

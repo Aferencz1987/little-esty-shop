@@ -3,5 +3,9 @@ class InvoiceItem < ApplicationRecord
   belongs_to :invoice
   belongs_to :item
 
+  def total_revenue
+    self.sum(unit_price * quantity)
+  end
+
   
 end

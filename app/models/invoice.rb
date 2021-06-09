@@ -15,6 +15,6 @@ class Invoice < ApplicationRecord
   end
 
   def convert_time
-    self.created_at.strftime("%A, %B %d, %Y")  
+    self.created_at.strftime("%A, %B %d, %Y")
   end
 end
