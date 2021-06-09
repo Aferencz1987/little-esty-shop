@@ -48,4 +48,11 @@ RSpec.describe 'Merchant Invoice show page' do
       # expect(page).to_not have_content(@item_3.name)
       # expect(page).to_not have_content(@item_4.name)
     end
+
+      #     As a merchant
+      # When I visit my merchant invoice show page
+      # Then I see the total revenue that will be generated from all of my items on the invoice
+    it 'shows the total generated revenue from all items in invoice' do
+      visit
+    end
 end

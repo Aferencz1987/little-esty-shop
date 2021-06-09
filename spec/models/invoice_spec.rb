@@ -7,9 +7,8 @@ describe Invoice do
     it {should have_many(:items).through(:invoice_items)}
   end
 
-  describe 'class methods' do
-    it "sorted incomplete invoices by date" do
-      @customer_1 = Customer.create!(first_name: "Dee", last_name: "Hill")
+  before(:each) do
+    @customer_1 = Customer.create!(first_name: "Dee", last_name: "Hill")
       @customer_2 = Customer.create!(first_name: "Zach", last_name: "Green")
       @customer_3 = Customer.create!(first_name: "Alex", last_name: "Ferencz")
       @customer_4 = Customer.create!(first_name: "Emmy", last_name: "Morris")
@@ -47,9 +46,19 @@ describe Invoice do
       @invoice_item_7 = InvoiceItem.create!(item: @item_7, invoice: @invoice_4, quantity: 4, unit_price: 2, status: 0)
       @invoice_item_8 = InvoiceItem.create!(item: @item_8, invoice: @invoice_3, quantity: 4, unit_price: 2, status: 1)
       @invoice_item_9 = InvoiceItem.create!(item: @item_9, invoice: @invoice_2, quantity: 4, unit_price: 2, status: 2)
-      @invoice_item_10 = InvoiceItem.create!(item: @item_10, invoice: @invoice_1, quantity: 4, unit_price: 2, status: 0)
+      @invoice_item_10 = InvoiceItem.create!(item: @item_10, invoice: @invoice_1, quantity: 4, unit_price: 2, status: 0)  
+  end
+
+  describe 'class methods' do
+    it "sorted incomplete invoices by date" do
 
       expect(Invoice.incomplete_invoices_sorted_by_date.first.id).to eq(@invoice_1.id)
     end
+
+    # xit 'converts the time' do
+    #   expected = convert_time(2012-03-25 09:54:09 UTC)
+
+    #   expect(expected) 
+    # end
   end
 end
