@@ -42,7 +42,7 @@ class Merchant < ApplicationRecord
     .group('invoices.id, invoices.created_at')
     .order("sum(invoice_items.quantity * invoice_items.unit_price) desc")
     .limit(1)
-
+  end
 
   def items_to_ship
     items.joins(:invoice_items).where.not('invoice_items.status = ?', 2)

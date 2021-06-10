@@ -6,7 +6,7 @@
 <h2>Top 5 Merchants</h2>
 <% @top_5.each do |merchant| %>
   <%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}"  %>
-  <% merchant.revenue %>
+  revenue: <%= merchant.revenue %>
   <% merchant.best_day %>
   <br>
 <% end %>
