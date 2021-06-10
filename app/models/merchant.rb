@@ -30,11 +30,16 @@ class Merchant < ApplicationRecord
     .order('revenue desc')
     .limit(5)
   end
-  #
-  # def best_day
-  #   joins(items: :invoice_items)
-  #   .joins('JOIN transactions ON invoice_items.invoice_id = transactions.invoice_id')
-  #   .select('merchants.*, sum(invoice_items.unit_price * invoice_items.quantity) AS revenue' )
-  #
-  # end
+
+  def best_day
+    Invoice.joins(items: :invoice_items)
+    .joins('JOIN merchants ON items.merchant_id = merchants.id')
+    .joins('JOIN transactions ON invoice_items.invoice_id = transactions.invoice_id')
+    .select("invoices.created_at")
+    .where('transactions.result = 0')
+    .where('merchants.id = ?', id)
+    .group('invoices.id, invoices.created_at')
+    .order("sum(invoice_items.quantity * invoice_items.unit_price) desc")
+    .limit(1)
+  end
 end

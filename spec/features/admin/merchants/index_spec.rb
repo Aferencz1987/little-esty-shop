@@ -161,4 +161,18 @@ RSpec.describe 'Admin Merchant' do
     end
     expect(current_path).to eq("/admin/merchants/#{@merchant_5.id}")
   end
+
+  it "Shows the date with the most revenue for each merchant" do
+    # As an admin,
+    # When I visit the admin merchants index
+    # Then next to each of the 5 merchants by revenue I see the date with the most revenue for each merchant.
+    # And I see a label “Top selling date for was "
+    # Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
+    visit "/admin/merchants"
+    # expect(page).to have_content(@merchant_1.best_day)
+    # expect(page).to have_content(@best_day.second)
+    # expect(page).to have_content(@best_day.third)
+    # expect(page).to have_content(@best_day.fourth)
+    # expect(page).to have_content(@best_day.fifth)
+  end
 end

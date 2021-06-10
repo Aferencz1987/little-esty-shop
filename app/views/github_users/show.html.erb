@@ -1,0 +1,7 @@
+<% if @github_user.valid? %>
+
+  <p><%= "Date joined github: #{@github_user.date_joined}" %></p>
+  <p><%= "Your name: #{@github_user.name}" %></p>
+<% else %>
+  <p>Invalid User</p>
+<% end %>
