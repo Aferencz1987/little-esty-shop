@@ -14,7 +14,7 @@ resources :github_users, only: :show
     resources :invoices
   end
 
-  resources :merchants do
+  resources :merchants, module: :merchant do
     resources :dashboard, only: [:index]
     resources :items, only: [:index, :show]
     resources :invoices

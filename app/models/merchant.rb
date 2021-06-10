@@ -31,6 +31,7 @@ class Merchant < ApplicationRecord
     .limit(5)
   end
 
+
   def best_day
     Invoice.joins(items: :invoice_items)
     .joins('JOIN merchants ON items.merchant_id = merchants.id')
@@ -41,5 +42,13 @@ class Merchant < ApplicationRecord
     .group('invoices.id, invoices.created_at')
     .order("sum(invoice_items.quantity * invoice_items.unit_price) desc")
     .limit(1)
+
+
+  def items_to_ship
+    items.joins(:invoice_items).where.not('invoice_items.status = ?', 2)
+  end
+
+  def order_items(items)
+    items.joins(:invoices).order('invoices.created_at desc')
   end
 end

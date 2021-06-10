@@ -1,0 +1,15 @@
+<h1>Merchant Dashboard</h1>
+
+  <h3><%= @merchant.name %></h3>
+  <%= link_to "Items", "/merchants/#{@merchant.id}/items" %>
+  <%= link_to "Invoices", "/merchants/#{@merchant.id}/invoices" %>
+
+  <h2>Top 5 Customers</h2>
+  <% @merchant.top_five_customers.each do |customer| %>
+   <p> <%= customer.first_name %>: Successful Transactions </p>
+  <% end %>
+
+  <h2>Items Ready to Ship</h2>
+  <% @merchant.order_items(@merchant.items_to_ship).each do |item| %>
+   <p><%= item.name%>, Created at:<%= item.invoices.first.convert_time %></p>
+  <% end %>

@@ -3,10 +3,14 @@ require 'rails_helper'
 describe Merchant do
   describe 'relationships' do
     it {should have_many :items}
+    it {should have_many(:invoice_items).through(:items)}
+    it {should have_many(:invoices).through(:invoice_items)}
+    it {should have_many(:customers).through(:invoices)}
+    it {should have_many(:transactions).through(:invoices)}
   end
 
   describe 'instance methods' do
-    xit 'returns top 5 customers name' do
+    it 'returns top 5 customers name' do
 
       @merchant = Merchant.create!(name: 'H&M')
       @customer_1 = Customer.create!(first_name: "Dee", last_name: "Hill")
@@ -46,6 +50,19 @@ describe Merchant do
       @invoice_6 = @customer_6.invoices.create!(status: :in_progress)
       @transaction_18 = @invoice_6.transactions.create!(credit_card_number: "6543 3456 6543 3456", credit_card_expiration_date: nil, result: 0)
       @transaction_19 = @invoice_6.transactions.create!(credit_card_number: "6543 3456 6543 3456", credit_card_expiration_date: nil, result: 0)
+
+      @item_1 = Item.create!(name: 'Shoes', description: 'For your feet', unit_price: 10.0, merchant_id: @merchant.id)
+      @item_2 = Item.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4, merchant_id: @merchant.id)
+      @item_3 = Item.create!(name: 'Shorts', description: 'For basketball', unit_price: 11.2, merchant_id: @merchant.id)
+      @item_4 = Item.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4, merchant_id: @merchant.id)
+    
+      @invoice_item_1 = InvoiceItem.create!(quantity: 2, unit_price: 10.0, status: 1, invoice_id: @invoice_1.id, item_id: @item_1.id) 
+      @invoice_item_2 = InvoiceItem.create!(quantity: 1, unit_price: 12.4, status: 1, invoice_id: @invoice_2.id, item_id: @item_2.id)
+      @invoice_item_3 = InvoiceItem.create!(quantity: 7, unit_price: 11.2, status: 1, invoice_id: @invoice_3.id, item_id: @item_3.id)
+
+      @invoice_item_4 = InvoiceItem.create!(quantity: 12, unit_price: 10.0, status: 1, invoice_id: @invoice_4.id, item_id: @item_1.id) 
+      @invoice_item_5 = InvoiceItem.create!(quantity: 7, unit_price: 12.4, status: 1, invoice_id: @invoice_5.id, item_id: @item_2.id)
+      @invoice_item_6 = InvoiceItem.create!(quantity: 19, unit_price: 12.4, status: 1, invoice_id: @invoice_6.id, item_id: @item_4.id)
 
       expected_customers = [@customer_1.first_name, @customer_4.first_name, @customer_3.first_name, @customer_6.first_name, @customer_2.first_name]
 
