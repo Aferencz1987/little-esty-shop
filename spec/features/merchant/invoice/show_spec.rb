@@ -20,7 +20,7 @@ RSpec.describe 'Merchant Invoice show page' do
     
     # Merchant Invoice Story 2  
     it 'shows an info related to tthe invoice' do
-      visit "/merchants/#{@merchant.id}/invoices/#{@invoice_1.id}"     
+      visit merchant_invoice_path(@merchant, @invoice_1)    
 
       expect(page).to have_content(@invoice_1.id)
       expect(page).to have_content(@invoice_1.status)
@@ -31,7 +31,7 @@ RSpec.describe 'Merchant Invoice show page' do
     
      # Merchant Invoice Story 3
     it 'shows all the items on the invoice show page with attributes including Invoice Item quatity and status' do 
-      visit "/merchants/#{@merchant.id}/invoices/#{@invoice_1.id}"
+      visit merchant_invoice_path(@merchant, @invoice_1)
       
       expect(page).to have_content('Items')
 
@@ -49,10 +49,12 @@ RSpec.describe 'Merchant Invoice show page' do
       # expect(page).to_not have_content(@item_4.name)
     end
 
-      #     As a merchant
-      # When I visit my merchant invoice show page
-      # Then I see the total revenue that will be generated from all of my items on the invoice
+      # Merchant Invoice Story 4 
     it 'shows the total generated revenue from all items in invoice' do
-      visit
+      visit merchant_invoice_path(@merchant, @invoice_1)
+
+      expected_revenue = (@invoice_item_1.quantity * @invoice_item_1.unit_price) + (@invoice_item_2.quantity * @invoice_item_2.unit_price) + (@invoice_item_3.quantity * @invoice_item_3.unit_price )
+      
+      expect(page).to have_content("Total Revenue: $#{expected_revenue}")
     end
 end
