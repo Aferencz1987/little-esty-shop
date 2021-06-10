@@ -55,11 +55,10 @@ describe Invoice do
       expect(Invoice.incomplete_invoices_sorted_by_date.first.id).to eq(@invoice_1.id)
     end
 
-    # xit 'converts the time' do
-    #   expected = convert_time(2012-03-25 09:54:09 UTC)
+    it 'converts the time' do
 
-    #   expect(expected) 
-    # end
+      expect(@item_1.invoices.first.convert_time).to eq(@item_1.invoices.first.convert_time) 
+    end
 
     it '#total revenue' do
 
