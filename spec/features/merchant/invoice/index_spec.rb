@@ -24,7 +24,7 @@ RSpec.describe 'Merchant Invoice' do
 
     #Merchant Invoice Story 1
   it 'visits the Merchant invocie index' do
-    visit "/merchants/#{@merchant.id}/invoices"
+    visit merchant_invoices_path(@merchant)
 
     expect(page).to have_content('Merchant Invoices')
     

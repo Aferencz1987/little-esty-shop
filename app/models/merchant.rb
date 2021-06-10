@@ -37,4 +37,12 @@ class Merchant < ApplicationRecord
   #   .select('merchants.*, sum(invoice_items.unit_price * invoice_items.quantity) AS revenue' )
   #
   # end
+
+  def items_to_ship
+    items.joins(:invoice_items).where.not('invoice_items.status = ?', 2)
+  end
+
+  def order_items(items)
+    items.joins(:invoices).order('invoices.created_at desc')
+  end
 end
