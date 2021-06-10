@@ -16,4 +16,8 @@ class Invoice < ApplicationRecord
   def convert_time
     self.created_at.strftime("%A, %B %d, %Y")
   end
+  
+  def total_revenue
+    invoice_items.sum('unit_price * quantity')     
+  end
 end
