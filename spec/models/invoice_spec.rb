@@ -60,5 +60,12 @@ describe Invoice do
 
     #   expect(expected) 
     # end
+
+    it '#total revenue' do
+
+      expected_revenue = (@invoice_item_1.quantity * @invoice_item_1.unit_price)
+
+      expect(expected_revenue).to eq(@invoice_1.total_revenue)
+    end
   end
 end
