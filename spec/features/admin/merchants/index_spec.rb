@@ -1,13 +1,60 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin Merchant' do
+  before(:each) do
+    @top_5 = Merchant.top_five_by_revenue
+    @merchant_1 = Merchant.create!(name: 'H&M', enabled: true)
+    @merchant_2 = Merchant.create!(name: 'Bubble', enabled: true)
+    @merchant_3 = Merchant.create!(name: 'Pop', enabled: true)
+    @merchant_4 = Merchant.create!(name: 'Egg', enabled: false)
+    @merchant_5 = Merchant.create!(name: 'Cheese', enabled: true)
+    @merchant_6 = Merchant.create!(name: 'Leaf', enabled: false)
+
+    @customer = Customer.create!(first_name: "Dee", last_name: "Hill")
+
+    @item_1 = Item.create!(name: 'Shoes', description: 'For your feet', unit_price: 10.0, merchant_id: @merchant_1.id)
+    @item_2 = Item.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4, merchant_id: @merchant_2.id)
+    @item_3 = Item.create!(name: 'Shorts', description: 'For basketball', unit_price: 11.2, merchant_id: @merchant_3.id)
+    @item_4 = Item.create!(name: 'Dress', description: 'Ugly gown', unit_price: 12.4, merchant_id: @merchant_4.id)
+    @item_5 = Item.create!(name: 'Dress', description: 'Beautiful gown', unit_price: 12.4, merchant_id: @merchant_5.id)
+
+    @invoice_1 = @customer.invoices.create!(status: 1)
+      @transaction_1 = @invoice_1.transactions.create!(credit_card_number: "1234 5678 1234 2678", credit_card_expiration_date: nil, result: 0)
+      @transaction_2 = @invoice_1.transactions.create!(credit_card_number: "1234 1234 1234 1234", credit_card_expiration_date: nil, result: 0)
+      @transaction_3 = @invoice_1.transactions.create!(credit_card_number: "1234 1234 1234 1234", credit_card_expiration_date: nil, result: 0)
+    @invoice_2 = @customer.invoices.create!(status: 1)
+      @transaction_4 = @invoice_2.transactions.create!(credit_card_number: "1234 5678 9012 3456", credit_card_expiration_date: nil, result: 1)
+      @transaction_5 = @invoice_2.transactions.create!(credit_card_number: "4321 1234 4321 1234", credit_card_expiration_date: nil, result: 0)
+
+    @invoice_3 = @customer.invoices.create!(status: 1)
+    @transaction_6 = @invoice_3.transactions.create!(credit_card_number: "2345 5432 2345 5432", credit_card_expiration_date: nil, result: 0)
+    @transaction_7 = @invoice_3.transactions.create!(credit_card_number: "2345 5432 2345 5432", credit_card_expiration_date: nil, result: 0)
+    @transaction_8 = @invoice_3.transactions.create!(credit_card_number: "2345 5432 2345 5432", credit_card_expiration_date: nil, result: 0)
+
+    @invoice_4 = @customer.invoices.create!(status: 1)
+    @transaction_9 = @invoice_4.transactions.create!(credit_card_number: "3456 6543 3456 6543", credit_card_expiration_date: nil, result: 0)
+    @transaction_10 = @invoice_4.transactions.create!(credit_card_number: "3456 6543 3456 6543", credit_card_expiration_date: nil, result: 0)
+    @transaction_11 = @invoice_4.transactions.create!(credit_card_number: "3456 6543 3456 6543", credit_card_expiration_date: nil, result: 0)
+
+    @invoice_5 = @customer.invoices.create!(status: 1)
+    @transaction_9 = @invoice_5.transactions.create!(credit_card_number: "3456 6543 3456 6543", credit_card_expiration_date: nil, result: 0)
+    @transaction_10 = @invoice_5.transactions.create!(credit_card_number: "3456 6543 3456 6543", credit_card_expiration_date: nil, result: 0)
+    @transaction_11 = @invoice_5.transactions.create!(credit_card_number: "3456 6543 3456 6543", credit_card_expiration_date: nil, result: 0)
+
+    @invoice_item_1 = InvoiceItem.create!(quantity: 2, unit_price: 14.9, status: 1, invoice_id: @invoice_1.id, item_id: @item_1.id)
+    @invoice_item_2 = InvoiceItem.create!(quantity: 1, unit_price: 14.9, status: 1, invoice_id: @invoice_2.id, item_id: @item_2.id)
+    @invoice_item_3 = InvoiceItem.create!(quantity: 2, unit_price: 14.9, status: 1, invoice_id: @invoice_3.id, item_id: @item_3.id)
+    @invoice_item_4 = InvoiceItem.create!(quantity: 2, unit_price: 14.9, status: 1, invoice_id: @invoice_4.id, item_id: @item_4.id)
+    @invoice_item_5 = InvoiceItem.create!(quantity: 2, unit_price: 14.9, status: 1, invoice_id: @invoice_5.id, item_id: @item_5.id)
+  end
+
   it 'it shows admin merchant index' do
     # Admin Merchants Index
     #
     # As an admin,
     # When I visit the admin merchants index (/admin/merchants)
     # Then I see the name of each merchant in the system
-    @merchant = Merchant.create!(name: 'H&M')
+    @merchant = Merchant.create!(name: 'TJ Max')
 
     visit '/admin/merchants'
 
@@ -27,7 +74,7 @@ RSpec.describe 'Admin Merchant' do
     # Then I am redirected back to the admin merchants index
     # And I see that the merchant's status has changed
 
-    @merchant_1 = Merchant.create!(name: 'H&M')
+    @merchant_1 = Merchant.create!(name: 'Rogers')
 
     visit '/admin/merchants'
     expect(page).to have_content(@merchant_1.name)
@@ -46,7 +93,6 @@ RSpec.describe 'Admin Merchant' do
     @merchant_2 = Merchant.create!(name: 'Bubble', enabled: true)
     @merchant_3 = Merchant.create!(name: 'Pop', enabled: true)
     @merchant_4 = Merchant.create!(name: 'Egg', enabled: false)
-
     visit '/admin/merchants'
 
     within '.enabled' do
@@ -81,7 +127,6 @@ RSpec.describe 'Admin Merchant' do
     expect(Merchant.last.name).to eq("Count Chocula's Chocolate Emporium")
     expect(page).to have_content("Count Chocula's Chocolate Emporium")
     expect(page).to have_button("Enable Count Chocula's Chocolate Emporium")
-    save_and_open_page
   end
 
   it "Show top 5 merchants by total revenue generated" do
@@ -97,6 +142,37 @@ RSpec.describe 'Admin Merchant' do
     # - Revenue for an invoice should be calculated as the sum of the revenue of all invoice items
     # - Revenue for an invoice item should be calculated as the invoice item unit price multiplied by the quantity (do not use the item unit price)
     visit "/admin/merchants"
+    expect(page).to have_link("#{@merchant_1.name}", href: "/admin/merchants/#{@merchant_1.id}")
+    expect(page).to have_content(@top_5.first.revenue)
 
+    expect(page).to have_link("#{@merchant_2.name}", href: "/admin/merchants/#{@merchant_2.id}")
+    expect(page).to have_content(@top_5.second.revenue)
+
+    expect(page).to have_link("#{@merchant_3.name}", href: "/admin/merchants/#{@merchant_3.id}")
+    expect(page).to have_content(@top_5.third.revenue)
+
+    expect(page).to have_link("#{@merchant_4.name}", href: "/admin/merchants/#{@merchant_4.id}")
+    expect(page).to have_content(@top_5.fourth.revenue)
+
+    within '.revenue' do
+      expect(page).to have_link("#{@merchant_5.name}", href: "/admin/merchants/#{@merchant_5.id}")
+      expect(page).to have_content(@top_5.fifth.revenue)
+      click_link "#{@merchant_5.name}"
+    end
+    expect(current_path).to eq("/admin/merchants/#{@merchant_5.id}")
+  end
+
+  it "Shows the date with the most revenue for each merchant" do
+    # As an admin,
+    # When I visit the admin merchants index
+    # Then next to each of the 5 merchants by revenue I see the date with the most revenue for each merchant.
+    # And I see a label “Top selling date for was "
+    # Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
+    visit "/admin/merchants"
+    # expect(page).to have_content(@merchant_1.best_day)
+    # expect(page).to have_content(@best_day.second)
+    # expect(page).to have_content(@best_day.third)
+    # expect(page).to have_content(@best_day.fourth)
+    # expect(page).to have_content(@best_day.fifth)
   end
 end
