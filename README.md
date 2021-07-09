@@ -1,5 +1,7 @@
 # Little Esty Shop
 
+heroku- https://floating-harbor-62650.herokuapp.com/
+
 ## Background and Description
 
 "Little Esty Shop" is a group project that requires students to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices.
